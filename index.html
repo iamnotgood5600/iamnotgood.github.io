@@ -23,8 +23,8 @@
 	</style>
 </head>
 <body>
-	<img id="gambar" src="https://www.w3schools.com/w3images/mountains.jpg">
-
+	<img id="gambar" src="https://www.w3schools.com/w3images/mountains.jpg"/>
+        <div id="hasilgambar"> </div>
 	<script>
 		var img = document.getElementById('gambar');
 
@@ -47,7 +47,7 @@
 			var cols = img.width / width;
 
 			// membuat elemen untuk menampilkan bagian-bagian gambar
-			var container = document.createElement('div');
+			var container = document.getElementById('hasilgambar');
 
 			// melakukan iterasi pada setiap bagian gambar
 			for (var y = 0; y < rows; y++) {
