@@ -1,1 +1,75 @@
-Ok
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Crop Gambar</title>
+	<style>
+		#gambar {
+			display: block;
+			margin: 0 auto;
+			width: 256px;
+			height: 192px;
+		}
+
+		.bagian-gambar {
+			display: inline-block;
+			margin: 0;
+			padding: 0;
+			width: 32px;
+			height: 32px;
+			border: 1px solid black;
+			box-sizing: border-box;
+		}
+	</style>
+</head>
+<body>
+	<img id="gambar" src="https://www.w3schools.com/w3images/mountains.jpg">
+
+	<script>
+		var img = document.getElementById('gambar');
+
+		// menunggu gambar dimuat
+		img.onload = function() {
+			// mengatur ukuran bagian-bagian gambar
+			var width = 32;
+			var height = 32;
+
+			// membuat elemen canvas
+			var canvas = document.createElement('canvas');
+			canvas.width = width;
+			canvas.height = height;
+
+			// mengambil konteks gambar dari canvas
+			var ctx = canvas.getContext('2d');
+
+			// mengatur jumlah baris dan kolom gambar
+			var rows = img.height / height;
+			var cols = img.width / width;
+
+			// membuat elemen untuk menampilkan bagian-bagian gambar
+			var container = document.createElement('div');
+
+			// melakukan iterasi pada setiap bagian gambar
+			for (var y = 0; y < rows; y++) {
+				for (var x = 0; x < cols; x++) {
+					// menggambar bagian gambar ke dalam canvas
+					ctx.drawImage(img, x * width, y * height, width, height, 0, 0, width, height);
+
+					// menyimpan bagian gambar dalam bentuk data URL
+					var tile = canvas.toDataURL('image/png');
+
+					// membuat elemen img untuk menampilkan bagian gambar
+					var imgBagianGambar = document.createElement('img');
+					imgBagianGambar.src = tile;
+					imgBagianGambar.classList.add('bagian-gambar');
+
+					// menambahkan elemen img ke dalam elemen container
+					container.appendChild(imgBagianGambar);
+				}
+			}
+
+			// menambahkan elemen container ke dalam body
+			document.body.appendChild(container);
+		};
+	</script>
+</body>
+</html>
