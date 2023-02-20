@@ -1,76 +1,65 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Crop Gambar</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-	<style>
-		#gambar {
-			display: block;
-			margin: 0 auto;
-			width: 256px;
-			height: 192px;
-		}
-
-		.bagian-gambar {
-			display: inline-block;
-			margin: 0;
-			padding: 0;
-			width: 32px;
-			height: 32px;
-			border: 1px solid black;
-			box-sizing: border-box;
-		}
-	</style>
-</head>
-<body>
-	<img id="gambar" src="https://www.w3schools.com/w3images/mountains.jpg"/>
-        <div id="hasilgambar"> </div>
-	<script>
-		var img = document.getElementById('gambar');
-
-		// menunggu gambar dimuat
-		img.onload = function() {
-			// mengatur ukuran bagian-bagian gambar
-			var width = 32;
-			var height = 32;
-
-			// membuat elemen canvas
-			var canvas = document.createElement('canvas');
-			canvas.width = width;
-			canvas.height = height;
-
-			// mengambil konteks gambar dari canvas
-			var ctx = canvas.getContext('2d');
-
-			// mengatur jumlah baris dan kolom gambar
-			var rows = img.height / height;
-			var cols = img.width / width;
-
-			// membuat elemen untuk menampilkan bagian-bagian gambar
-			var container = document.getElementById('hasilgambar');
-
-			// melakukan iterasi pada setiap bagian gambar
-			for (var y = 0; y < rows; y++) {
-				for (var x = 0; x < cols; x++) {
-					// menggambar bagian gambar ke dalam canvas
-					ctx.drawImage(img, x * width, y * height, width, height, 0, 0, width, height);
-
-					// menyimpan bagian gambar dalam bentuk data URL
-					var tile = canvas.toDataURL('image/png');
-
-					// membuat elemen img untuk menampilkan bagian gambar
-					var imgBagianGambar = document.createElement('img');
-					imgBagianGambar.src = tile;
-					imgBagianGambar.classList.add('bagian-gambar');
-
-					// menambahkan elemen img ke dalam elemen container
-					container.appendChild(imgBagianGambar);
-				}
-			}
-
-			// menambahkan elemen container ke dalam body
-			document.body.appendChild(container);
-		};
-	</script>
-</body>
+  <head>
+    <title>Form Login Robotik</title>
+    <style>
+      body {
+        background-color: black;
+        font-family: 'Roboto', sans-serif;
+      }
+      
+      .login {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.2);
+        margin: auto;
+        width: 300px;
+        padding: 20px;
+        text-align: center;
+      }
+      
+      .login h1 {
+        color: white;
+        font-size: 2.5em;
+        margin-bottom: 30px;
+      }
+      
+      .login input[type="text"], .login input[type="password"] {
+        background-color: rgba(255, 255, 255, 0.2);
+        border: none;
+        border-radius: 3px;
+        color: white;
+        font-size: 1.5em;
+        margin-bottom: 10px;
+        padding: 10px;
+        width: 100%;
+      }
+      
+      .login input[type="submit"] {
+        background-color: #66c2ff;
+        border: none;
+        border-radius: 3px;
+        color: white;
+        cursor: pointer;
+        font-size: 1.5em;
+        margin-top: 20px;
+        padding: 10px;
+        width: 100%;
+      }
+      
+      .login input[type="submit"]:hover {
+        background-color: #0077c2;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login">
+      <h1>Form Login Robotik</h1>
+      <form>
+        <input type="text" placeholder="Username">
+        <input type="password" placeholder="Password">
+        <input type="submit" value="Login">
+      </form>
+    </div>
+  </body>
 </html>
