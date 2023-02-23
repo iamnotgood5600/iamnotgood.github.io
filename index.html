@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <title>PWA Gacha</title>
+    <link rel="manifest" href="/manifest.json">
+  </head>
+  <body>
+    <header>
+      <h1>PWA Gacha</h1>
+    </header>
+    <main>
+      <button id="gachaButton">Gacha</button>
+      <p id="result"></p>
+    </main>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/service-worker.js');
+        });
+      }
+      
+      const gachaButton = document.querySelector('#gachaButton');
+      const result = document.querySelector('#result');
+
+      gachaButton.addEventListener('click', () => {
+        // Angka 3 menandakan jumlah item yang bisa didapatkan dari gacha
+        const random = Math.floor(Math.random() * 3);
+
+        // Item yang bisa didapatkan dari gacha
+        const items = ['Item A', 'Item B', 'Item C'];
+
+        result.textContent = `Anda mendapatkan ${items[random]}!`;
+      });
+    </script>
+  </body>
+</html>
