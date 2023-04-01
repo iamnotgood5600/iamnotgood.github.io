@@ -9,8 +9,9 @@ FB.init({
   xfbml      : true,
   version    : 'v13.0'
 });
-
+let doc = document.getElementById("ok");
 function login() {
+ doc.innerText += " Click";
   FB.login(function(response) {
     if (response.authResponse) {
       alert('You are now logged in.');
@@ -29,7 +30,7 @@ function login() {
        </script>
 </head>
 <body>
-	<h1>Facebook Login Example</h1>
+	<h1 id="ok">Facebook Login Example</h1>
 	<button onclick="login()">Login with Facebook</button>
 
 	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
