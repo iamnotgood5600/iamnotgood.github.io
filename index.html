@@ -1,14 +1,8 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 	<title>Facebook Login</title>
-</head>
-<body>
-	<h1>Facebook Login Example</h1>
-	<button onclick="login()">Login with Facebook</button>
-
-	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
-	<script>
+<script>
 FB.init({
   appId      : '855810784833773',
   cookie     : true,
@@ -19,19 +13,26 @@ FB.init({
 function login() {
   FB.login(function(response) {
     if (response.authResponse) {
-      console.log('You are now logged in.');
+      alert('You are now logged in.');
 
       // Get user profile information
       FB.api('/me', function(response) {
-        console.log('Hello, ' + response.name + '!');
+        alert('Hello, ' + response.name + '!');
       });
 
     } else {
-      console.log('There was a problem logging you in.');
+      alert('There was a problem logging you in.');
     }
   });
 }
 
        </script>
+</head>
+<body>
+	<h1>Facebook Login Example</h1>
+	<button onclick="login()">Login with Facebook</button>
+
+	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+	
 </body>
 </html>
