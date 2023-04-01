@@ -1,181 +1,37 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html>
-  <head>
-    <meta name="google-site-verification" content="wK_u_H8ZZ5HuI5rJJtmnqZ-ZSHpE0EwJ_b2jcQUEyN0" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#800000">
-    <title>PWA Gacha</title>
-    <link rel="manifest" href="/manifest.json">
-<style>
-.gacha-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: #272727;
-}
+<head>
+	<title>Facebook Login</title>
+</head>
+<body>
+	<h1>Facebook Login Example</h1>
+	<button onclick="login()">Login with Facebook</button>
 
-.gacha-item-container {
-  position: relative;
-  width: 200px;
-  height: 200px;
-  margin-bottom: 20px;
-}
+	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+	<script>
+FB.init({
+  appId      : 'YOUR_APP_ID',
+  cookie     : true,
+  xfbml      : true,
+  version    : 'v13.0'
+});
 
-.gacha-item {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  animation: spin 2s linear infinite;
-  transform-origin: center center;
-}
+function login() {
+  FB.login(function(response) {
+    if (response.authResponse) {
+      console.log('You are now logged in.');
 
-.spin-button-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
+      // Get user profile information
+      FB.api('/me', function(response) {
+        console.log('Hello, ' + response.name + '!');
+      });
 
-.spin-button {
-  padding: 10px 20px;
-  background-color: #eb4d4b;
-  color: #fff;
-  font-size: 16px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
-}
-
-.spin-button:hover {
-  background-color: #ff7979;
-}
-
-.result-container {
-  margin-bottom: 10px;
-}
-
-.result-text {
-  color: #fff;
-  font-size: 16px;
-  text-align: center;
-}
-
-.saldo-container {
-  margin-bottom: 10px;
-}
-
-.saldo-text {
-  color: #fff;
-  font-size: 16px;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-</style>
-  </head>
-  <body>
-    <header>
-      <h1>PWA Gacha</h1>
-    </header>
-    <main>
-<div class="gacha-container">
-  <div class="gacha-item-container">
-    <img id="gacha-item" class="gacha-item" src="default.png" alt="Item">
-    <div class="spin-button-container">
-      <button id="spin-button" class="spin-button">Spin</button>
-    </div>
-  </div>
-  <div class="result-container">
-    <p id="result" class="result-text">Tekan tombol Spin untuk memulai gacha</p>
-  </div>
-  <div class="saldo-container">
-    <p id="saldo" class="saldo-text">Saldo: 0</p>
-  </div>
-</div>
-
-    </main>
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-          navigator.serviceWorker.register('/service-worker.js');
-        });
-      }
-      
-      // Buatlah variabel saldo dengan nilai awal 0
-let saldo = 0;
-
-// Buatlah fungsi untuk menambah saldo
-function tambahSaldo(jumlah) {
-  saldo += jumlah;
-  const saldoElement = document.getElementById('saldo');
-  saldoElement.innerText = `Saldo: ${saldo}`;
-}
-
-// Panggil fungsi tambahSaldo() dengan parameter jumlah yang diinginkan
-tambahSaldo(100); // Contoh: menambah saldo sebesar 100
-
-// Buatlah fungsi untuk melakukan spin gacha
-function spinGacha() {
-  // Cek apakah saldo mencukupi
-  if (saldo < 10) {
-    const resultElement = document.getElementById('result');
-    resultElement.innerText = 'Saldo tidak mencukupi!';
-    return;
-  }
-
-  // Kurangi saldo sebesar 10
-  saldo -= 10;
-
-  // Inisialisasi variabel untuk menyimpan hasil spin
-  let result = null;
-
-  // Generate angka acak antara 0 dan 1
-  const randomNum = Math.random();
-
-  // Buatlah objek yang berisi peluang mendapatkan setiap item
-  const probabilityObj = {
-    'Item A': 0.1,
-    'Item B': 0.3,
-    'Item C': 0.5,
-    'Item D': 0.1,
-    'Item E': 0.01 // Droprate besar untuk Item E
-  };
-
-  // Loop melalui objek peluang untuk menentukan item yang diperoleh
-  let cumulativeProbability = 0;
-  for (const item in probabilityObj) {
-    cumulativeProbability += probabilityObj[item];
-    if (randomNum <= cumulativeProbability) {
-      result = item;
-      break;
+    } else {
+      console.log('There was a problem logging you in.');
     }
-  }
-
-  // Tampilkan hasil spin
-  const presentationElement = document.getElementById('presentation');
-  presentationElement.innerHTML = `<img src="${result.toLowerCase().replace(' ', '_')}.png">`;
-  const resultElement = document.getElementById('result');
-  resultElement.innerText = `Anda mendapatkan ${result}!`;
-
-  // Perbarui saldo di tampilan
-  const saldoElement = document.getElementById('saldo');
-  saldoElement.innerText = `Saldo: ${saldo}`;
+  });
 }
 
-// Panggil fungsi spinGacha() ketika tombol "Spin" diklik
-const spinButton = document.getElementById('spin-button');
-spinButton.addEventListener('click', spinGacha);
-
-    </script>
-  </body>
+       </script>
+</body>
 </html>
